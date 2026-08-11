@@ -6,19 +6,22 @@ function App() {
   const [shortUrl, setShortUrl] = useState('');
   const [error, setError] = useState('');
 
+  // Your live Render URL is inserted here
+  const backendUrl = 'https://mern-url-backend-s585.onrender.com';
+
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     setError('');
     setShortUrl('');
 
     try {
-      // Send the long URL to your backend
-      const response = await axios.post('http://localhost:5000/shorten', {
+      // Send the long URL to your live cloud backend
+      const response = await axios.post(`${backendUrl}/shorten`, {
         originalUrl: originalUrl
       });
       
-      // Create the clickable short link
-      const fullShortLink = `http://localhost:5000/${response.data.shortCode}`;
+      // Create the clickable short link using the cloud backend URL
+      const fullShortLink = `${backendUrl}/${response.data.shortCode}`;
       setShortUrl(fullShortLink);
       setOriginalUrl(''); 
     } catch (err) {
